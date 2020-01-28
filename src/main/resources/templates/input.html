@@ -8,7 +8,7 @@
   <link rel="stylesheet" th:href="@{http://fonts.googleapis.com/css?family=Exo:900}"
         href="http://fonts.googleapis.com/css?family=Exo:900"/>
   <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css">
-  <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+  <script src="https://ajaxzip3.github.io/ajaxzip3.js"></script>
 </head>
 
 <body>
@@ -22,73 +22,90 @@
     <div class="col-sm-12">
       <fieldset>
         <legend>個人情報</legend>
-        <div class="form-group">
+        <div class="form-row">
+        <div class="form-group col-md-3">
           <label for="customerName">氏名</label>
-          <input type="text" required id="customerName" name="customerName" th:field="*{customerName}" class="form-control" value="山田太郎"/>
+          <input type="text" required id="customerName" name="customerName" size="30" th:field="*{customerName}" class="form-control" placeholder="山田太郎"/>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-3">
           <label for="tel">連絡先TEL（ハイフンなしで入力）</label>
-          <input type="tel" required pattern="^[0-9]+$" id="tel" name="tel" th:field="*{tel}" class="form-control" value="03-1234-5678"/>
+          <input type="tel" required pattern="^[0-9]+$" id="tel" name="tel" th:field="*{tel}" class="form-control" placeholder="0312345678"/>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-6">
           <label for="email">連絡先メールアドレス</label>
           <input type="email" required id="email" name="email" th:field="*{email}" class="form-control" value="test@test.com"/>
         </div>
-
-        <!---<div class="form-group">
-          <label for="yubin">郵便番号</label>
-          <input type="text" name="zip11" size="10" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11');">
         </div>
-       --->
 
+        <!--郵便番号フォームの作成---
         <div class="form-group">
+
+            <label>郵便番号(ハイフンもOK)</label><br>
+            <input type="text" name="zip01" size="10" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','pref01','addr01');"><br>
+            <label>都道府県</label><br>
+            <input type="text" name="pref01" size="20"><br>
+            <label>以降の住所</label><br>
+            <input type="text" name="addr01" size="60"><br>
+
+        </div>
+        <!--ここまで-->
+
+        <div class="form-row">
+        <div class="form-group col-md-4">
           <label for="oldPrefectureId">転居元住所（都道府県）</label>
           <select id="oldPrefectureId" required name="oldPrefectureId" class="form-control">
             <option th:each="prefecture : ${prefectures}" th:value="${prefecture.prefectureId}" th:field="*{oldPrefectureId}">[[${prefecture.prefectureName}]]</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-8">
           <label for="oldAddress">転居元住所（市区町村以下）</label>
           <input type="text" pattern="[^\x20-\x7E]*" required id="oldAddress" name="oldAddress" th:field="*{oldAddress}"
                  class="form-control" value="新宿区西新宿1-1-1"/>
         </div>
-        <div class="form-group">
+        </div>
+
+        <div class="form-row">
+        <div class="form-group col-md-4">
           <label for="newPrefectureId">転居先住所（都道府県）</label>
           <select id="newPrefectureId" name="newPrefectureId" class="form-control">
             <option th:each="prefecture : ${prefectures}" th:value="${prefecture.prefectureId}" th:field="*{newPrefectureId}">[[${prefecture.prefectureName}]]</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-8">
           <label for="newAddress">転居先住所（市区町村以下）</label>
           <input type="text" pattern="[^\x20-\x7E]*" id="newAddress" name="newAddress" th:field="*{newAddress}" class="form-control"
                  value="札幌市南区1"/>
         </div>
+        </div>
+
       </fieldset>
       <fieldset>
         <legend>荷物情報（半角数字を入力）</legend>
-        <div class="form-group">
+        <div class="form-row">
+        <div class="form-group col-md-2">
           <label for="box">段ボールの個数</label>
           <input type="number" min="0" required id="box" name="box" th:field="*{box}" class="form-control" value="10"/>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-2">
           <label for="bed">ベッドの個数</label>
           <input type="number" min="0"  required id="bed" name="bed" th:field="*{bed}" class="form-control" value="3"/>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-2">
           <label for="bicycle">自転車の個数</label>
           <input type="number" min="0"  required id="bicycle" name="bicycle" th:field="*{bicycle}" class="form-control" value="1"/>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-2">
           <label for="washingMachine">洗濯機の個数</label>
           <input type="number" min="0"  required id="washingMachine" name="washingMachine" th:field="*{washingMachine}" class="form-control"
                  value="1"/>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-4">
           <label for="hasWashingMachineSettingOption">洗濯機の設置工事申し込み</label>
           <select id="hasWashingMachineSettingOption" name="hasWashingMachineSettingOption" class="form-control" th:field="*{hasWashingMachineSettingOption}">
             <option th:value="false" th:text="なし">なし</option>
             <option th:value="true" th:text="あり">あり</option>
           </select>
+        </div>
         </div>
       </fieldset>
       <div class="form-group">
