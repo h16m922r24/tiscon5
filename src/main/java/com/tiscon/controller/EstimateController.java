@@ -128,8 +128,11 @@ public class EstimateController {
         }
 
         //料金の計算を行う。
+        //オブジェクト作成
         UserOrderDto dto = new UserOrderDto();
+        //プロパティのコピー
         BeanUtils.copyProperties(userOrderForm, dto);
+        //priceにgetPriceの結果を入れる
         Integer price = estimateService.getPrice(dto);
 
         model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
